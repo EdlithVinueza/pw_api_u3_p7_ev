@@ -1,37 +1,26 @@
-package uce.edu.ec.repository.modelo;
+package uce.edu.ec.service.to;
 
 import java.time.LocalDateTime;
- 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
 
- 
-@Entity
-@Table(name ="persona")
+public class PersonaTo {
 
-public class Persona {
- 
-    @Id
-    @SequenceGenerator(name ="sec_persona",sequenceName = "sec_persona",allocationSize = 1 )
-    @GeneratedValue(generator = "sec_persona", strategy = GenerationType.SEQUENCE)
-    @Column(name = "pers_id")
     private Integer id;
- 
-    @Column(name = "pers_nombre")
+
     private String nombre;
- 
-    @Column(name = "pers_apellido")
+
     private String apellido;
- 
-    @Column(name = "pers_fecha_nacimiento")
+
     private LocalDateTime fechaNacimiento;
 
-    public Persona() {
+    public PersonaTo(Integer id, String nombre, String apellido, LocalDateTime fechaNacimiento) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public PersonaTo() {
+
     }
 
     //set
@@ -51,18 +40,19 @@ public class Persona {
     public Integer getId() {
         return id;
     }
+
     public String getNombre() {
         return nombre;
     }
+
     public String getApellido() {
         return apellido;
     }
+
     public LocalDateTime getFechaNacimiento() {
         return fechaNacimiento;
     }
-    
 
- 
-   
+
+
 }
- 
