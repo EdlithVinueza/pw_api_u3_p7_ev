@@ -11,6 +11,8 @@ public class PersonaTo {
     private String apellido;
 
     private LocalDateTime fechaNacimiento;
+    
+    private static final long serialVersionUID = -1544399202104638172L;
 
     public PersonaTo(Integer id, String nombre, String apellido, LocalDateTime fechaNacimiento) {
         this.id = id;

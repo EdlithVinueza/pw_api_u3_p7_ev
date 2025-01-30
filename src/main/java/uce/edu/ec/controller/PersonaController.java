@@ -3,6 +3,7 @@ package uce.edu.ec.controller;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.Response;
 import uce.edu.ec.service.IPersonaService;
 import uce.edu.ec.service.to.PersonaTo;
 
@@ -15,9 +16,11 @@ public class PersonaController {
 
     @GET
     @Path("/buscar") // definimso nombre de la capacida
-    public void buscarPorId() {
+    public Response buscarPorId() {
         Integer id = 1;
         this.iPersonaService.buscarPorId(id);
+        return Response.ok(this.iPersonaService.buscarPorId(id)).build();
+
     }
 
     @GET
