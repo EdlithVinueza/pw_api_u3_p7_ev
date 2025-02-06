@@ -7,6 +7,7 @@ import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import uce.edu.ec.service.IPersonaService;
 import uce.edu.ec.service.to.PersonaTo;
 
@@ -18,29 +19,30 @@ public class PersonaController {
     private IPersonaService iPersonaService;
 
     @GET
-    @Path("/buscar") // definimso nombre de la capacida
-    public PersonaTo buscarPorId() {
-        Integer id = 1;
+    @Path("/{id}") // definimso nombre de la capacida
+    public PersonaTo buscarPorId(@PathParam("id") Integer id) {
         return this.iPersonaService.buscarPorId(id);
-
     }
 
     @POST
-    @Path("/guardar") // definimso nombre de la capacida
+    @Path("") // definimso nombre de la capacida
     public void guardar(PersonaTo personaTo) {
         this.iPersonaService.guardar(personaTo);
     }
 
     @PUT
-    @Path("/actualizar") // definimso nombre de la capacida
-    public void actualizar(PersonaTo personaTo) {
-        this.iPersonaService.actualizar(personaTo);
+    @Path("/{id}") // definimso nombre de la capacida
+    public void actualizar(PersonaTo personaTo, @PathParam("id") Integer id) { //debemos recibir un objeto to
+        PersonaTo tmp = this.iPersonaService.buscarPorId(id);
+        tmp.setNombre(personaTo.getNombre());
+        this.iPersonaService.actualizar(tmp);
     }
 
     @PATCH
-    @Path("/actualizar/parcial") // definimso nombre de la capacida
-    public void actualizarParcial(PersonaTo personaTo) { //debemos recibir un objeto to 
-        PersonaTo tmp = this.iPersonaService.buscarPorId(personaTo.getId());
+    @Path("/{id}/nuevo/{cedula}") // definimso nombre de la capacida
+    public void actualizarParcial(PersonaTo personaTo,  @PathParam("id") Integer id,@PathParam("cedula") String cedula) { //debemos recibir un objeto to 
+        System.out.println("Cedula: "+cedula);
+        PersonaTo tmp = this.iPersonaService.buscarPorId(id);
         if (personaTo.getNombre() != null) {
             personaTo.setNombre(tmp.getNombre());
         }
@@ -49,9 +51,9 @@ public class PersonaController {
     }
 
     @DELETE
-    @Path("/borrar") // definimso nombre de la capacida
-    public void borrar() {
-        this.iPersonaService.borrar(1);
+    @Path("/{id}") // definimso nombre de la capacida
+    public void borrar(@PathParam("id") Integer id) {
+        this.iPersonaService.borrar(id);
     }
 
 }
