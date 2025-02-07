@@ -1,5 +1,7 @@
 package uce.edu.ec.controller;
 
+import java.util.List;
+
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -8,18 +10,19 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
 import uce.edu.ec.service.IPersonaService;
 import uce.edu.ec.service.to.PersonaTo;
 
 @Path("/persona") // Definimos el nombre del servicio
 public class PersonaController {
 
-    // Crear los metodos de la funcionadlidad de la clase Persona
+    
     @Inject
     private IPersonaService iPersonaService;
 
     @GET
-    @Path("/{id}") // definimso nombre de la capacida
+    @Path("/{id}") 
     public PersonaTo buscarPorId(@PathParam("id") Integer id) {
         return this.iPersonaService.buscarPorId(id);
     }
@@ -39,9 +42,9 @@ public class PersonaController {
     }
 
     @PATCH
-    @Path("/{id}/nuevo/{cedula}") // definimso nombre de la capacida
-    public void actualizarParcial(PersonaTo personaTo,  @PathParam("id") Integer id,@PathParam("cedula") String cedula) { //debemos recibir un objeto to 
-        System.out.println("Cedula: "+cedula);
+    @Path("/{id}/nuevo/{cedula}")
+    public void actualizarParcial(PersonaTo personaTo, @PathParam("id") Integer id, @PathParam("cedula") String cedula) {
+        System.out.println("Cedula: " + cedula);
         PersonaTo tmp = this.iPersonaService.buscarPorId(id);
         if (personaTo.getNombre() != null) {
             personaTo.setNombre(tmp.getNombre());
@@ -54,6 +57,25 @@ public class PersonaController {
     @Path("/{id}") // definimso nombre de la capacida
     public void borrar(@PathParam("id") Integer id) {
         this.iPersonaService.borrar(id);
+    }
+
+    
+    @GET
+    @Path("")
+    public List<PersonaTo> buscarTodos(){
+        return this.iPersonaService.buscarTodos(); 
+    }
+    
+    @GET
+    @Path("/porNombre") //por que si no se confunde con el el path de buscarTodos
+    public List<PersonaTo> buscarPorNombre(@QueryParam("nombre") String nombre){
+        return this.iPersonaService.buscarPorNombre(nombre);
+    }
+
+    @GET
+    @Path("porNombreYApellido") 
+    public List<PersonaTo> buscarPorNombreYApellidos(@QueryParam("nombre") String nombre, @QueryParam("apellido") String apellido) {
+        return this.iPersonaService.buscarPorNombreYApellido(nombre, apellido);
     }
 
 }
