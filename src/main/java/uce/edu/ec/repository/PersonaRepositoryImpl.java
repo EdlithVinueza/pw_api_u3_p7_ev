@@ -19,7 +19,12 @@ public class PersonaRepositoryImpl implements IPersonaRepository {
 
     @Override
     public Persona buscarPorId(Integer id) {
-        return this.entityManager.find(Persona.class, id);
+         try {
+            return this.entityManager.find(Persona.class, id);
+        } catch (Exception e) {
+            System.out.println("Error al buscar por id: " + e.getMessage());
+            return new Persona(0, "No existe", "No existe", null);
+        }
     }
 
     @Override

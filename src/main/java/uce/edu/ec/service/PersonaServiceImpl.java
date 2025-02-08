@@ -37,8 +37,13 @@ public class PersonaServiceImpl implements IPersonaService {
     @Override
     public PersonaTo buscarPorId(Integer id) {
 
-        Persona persona = this.iPersonaRepository.buscarPorId(id);
-        return this.mapPersona.apply(persona);
+        try {
+            Persona persona = this.iPersonaRepository.buscarPorId(id);
+            return this.mapPersona.apply(persona);
+        } catch (Exception e) {
+            System.out.println("Error al buscar por id: " + e.getMessage());
+            return new PersonaTo(0, "No existe", "No existe", null);
+        }
     }
 
     @Override

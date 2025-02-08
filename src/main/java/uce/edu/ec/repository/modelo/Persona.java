@@ -34,6 +34,13 @@ public class Persona {
     public Persona() {
     }
 
+    public Persona(Integer id, String nombre, String apellido, LocalDateTime fechaNacimiento) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
     //set
     public void setId(Integer id) {
         this.id = id;
