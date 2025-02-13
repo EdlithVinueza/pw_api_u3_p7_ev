@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 
 import jakarta.xml.bind.annotation.XmlElement;
 
+import jakarta.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "persona")
 public class PersonaTo {
 
     private Integer id;
