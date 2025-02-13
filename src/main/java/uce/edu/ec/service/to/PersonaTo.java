@@ -2,6 +2,9 @@ package uce.edu.ec.service.to;
 
 import java.time.LocalDateTime;
 
+import jakarta.xml.bind.annotation.XmlElement;
+
+
 public class PersonaTo {
 
     private Integer id;
@@ -11,7 +14,7 @@ public class PersonaTo {
     private String apellido;
 
     private LocalDateTime fechaNacimiento;
-    
+
     private static final long serialVersionUID = -1544399202104638172L;
 
     public PersonaTo(Integer id, String nombre, String apellido, LocalDateTime fechaNacimiento) {
@@ -25,36 +28,42 @@ public class PersonaTo {
 
     }
 
-    //set
+    // set
     public void setId(Integer id) {
         this.id = id;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+
     public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-    //get
+
+    // get
+    @XmlElement
     public Integer getId() {
         return id;
     }
 
+    @XmlElement
     public String getNombre() {
         return nombre;
     }
 
+    @XmlElement
     public String getApellido() {
         return apellido;
     }
 
+    @XmlElement
     public LocalDateTime getFechaNacimiento() {
         return fechaNacimiento;
     }
-
-
 
 }

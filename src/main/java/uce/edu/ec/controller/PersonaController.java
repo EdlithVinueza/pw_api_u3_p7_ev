@@ -2,6 +2,7 @@ package uce.edu.ec.controller;
 
 import java.util.List;
 
+import jakarta.ws.rs.Produces;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -11,6 +12,8 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import uce.edu.ec.service.IPersonaService;
 import uce.edu.ec.service.to.PersonaTo;
 
@@ -23,8 +26,10 @@ public class PersonaController {
 
     @GET
     @Path("/{id}") 
-    public PersonaTo buscarPorId(@PathParam("id") Integer id) {
-        return this.iPersonaService.buscarPorId(id);
+    @Produces(MediaType.APPLICATION_XML) // esto produce o retorna algo 
+    public Response buscarPorId(@PathParam("id") Integer id) {
+        //Si queremos enviar mensajes o codigos de respuesta los mandamos desde el header
+        return Response.status(240).header("mensaje", "Persona creada pero en proceso de validación...").header("valor1", 500).entity(this.iPersonaService.buscarPorId(id)).build();
     }
 
     @POST
