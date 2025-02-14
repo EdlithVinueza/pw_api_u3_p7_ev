@@ -53,14 +53,14 @@ public class PersonaController {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_XML)
     @Consumes(MediaType.APPLICATION_XML)
-    public void actualizarParcial(PersonaTo personaTo, @PathParam("id") Integer id) {
+    public PersonaTo actualizarParcial(PersonaTo personaTo, @PathParam("id") Integer id) {
         PersonaTo tmp = this.iPersonaService.buscarPorId(id);
         if (personaTo.getNombre() != null) {
             personaTo.setNombre(tmp.getNombre());
         }
         tmp.setNombre(personaTo.getNombre());
         this.iPersonaService.actualizar(tmp);
-        Response.status(200).header("mensaje", "Persona actualizada").entity(tmp).build();
+       return tmp;
     }
 
     @DELETE
