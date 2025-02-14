@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.ws.rs.Produces;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
@@ -34,6 +35,7 @@ public class PersonaController {
 
     @POST
     @Path("") // definimso nombre de la capacida
+    @Consumes(MediaType.APPLICATION_XML)
     public void guardar(PersonaTo personaTo) {
         this.iPersonaService.guardar(personaTo);
     }
@@ -44,18 +46,21 @@ public class PersonaController {
         PersonaTo tmp = this.iPersonaService.buscarPorId(id);
         tmp.setNombre(personaTo.getNombre());
         this.iPersonaService.actualizar(tmp);
+       
     }
 
     @PATCH
-    @Path("/{id}/nuevo/{cedula}")
-    public void actualizarParcial(PersonaTo personaTo, @PathParam("id") Integer id, @PathParam("cedula") String cedula) {
-        System.out.println("Cedula: " + cedula);
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_XML)
+    public void actualizarParcial(PersonaTo personaTo, @PathParam("id") Integer id) {
         PersonaTo tmp = this.iPersonaService.buscarPorId(id);
         if (personaTo.getNombre() != null) {
             personaTo.setNombre(tmp.getNombre());
         }
         tmp.setNombre(personaTo.getNombre());
         this.iPersonaService.actualizar(tmp);
+        Response.status(200).header("mensaje", "Persona actualizada").entity(tmp).build();
     }
 
     @DELETE
