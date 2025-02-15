@@ -27,7 +27,7 @@ public class PersonaController {
 
     @GET
     @Path("/{id}") 
-    @Produces(MediaType.APPLICATION_XML) // esto produce o retorna algo 
+    @Produces(MediaType.APPLICATION_JSON) // esto produce o retorna algo 
     public Response buscarPorId(@PathParam("id") Integer id) {
         //Si queremos enviar mensajes o codigos de respuesta los mandamos desde el header
         return Response.status(240).header("mensaje", "Persona creada pero en proceso de validación...").header("valor1", 500).entity(this.iPersonaService.buscarPorId(id)).build();
@@ -35,7 +35,7 @@ public class PersonaController {
 
     @POST
     @Path("") // definimso nombre de la capacida
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_JSON)
     public void guardar(PersonaTo personaTo) {
         this.iPersonaService.guardar(personaTo);
     }
@@ -51,8 +51,8 @@ public class PersonaController {
 
     @PATCH
     @Path("/{id}")
-    @Produces(MediaType.APPLICATION_XML)
-    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public PersonaTo actualizarParcial(PersonaTo personaTo, @PathParam("id") Integer id) {
         PersonaTo tmp = this.iPersonaService.buscarPorId(id);
         if (personaTo.getNombre() != null) {
